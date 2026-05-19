@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll wyx(ll a,ll b,ll c)
+{
+	int ans=1;
+	while(b>0)
+	{
+		if(b%2==1)
+		{
+			ans=ans*a%c;
+		}
+		b/=2;
+		a=a*a%c;
+	}
+	return ans;
+}
+int main()
+{
+	long long b,p,k;
+	cin>>b>>p>>k;
+	cout<<b<<"^"<<p<<" mod "<<k<<"=";
+	cout<<wyx(b,p,k);
+}
+//***(a*b)%c=[(a%c)(b&c)]%c
+//证明 (a*b)%c = [(a%c)*(b%c)]%c
+//由商数与余数的关系，可以得到：  a = cQ+R, b = cQ`+R`
+//
+//将a,b代入(a*b)%c，得到：(a*b)%c=[(cQ+R)(cQ`+R`)]%c=(cQQ`+cRQ`+cR`Q+RR`)%c
+//
+//由于cQQ`,cRQ`,cR`Q均可以被c整除，所以(a*b)%c = (RR`)%c
+//
+//因为R,R`为余数，所以(a*b)%c = [(a%c)*(b%c)]%c
+//————————————————
+//版权声明：本文为CSDN博主「清蒸猪头」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+//原文链接：https://blog.csdn.net/a1444542375/article/details/119491889

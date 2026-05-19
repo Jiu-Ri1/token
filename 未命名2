@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, num;
+    cin >> n;
+    vector<string> key(n);
+    for (int i = 0; i < n; i++) {
+        cin >> key[i];
+    }
+    cin >> num;
+    cin.ignore(); // 忽略换行
+    string l1;
+    getline(cin, l1);
+
+    // 第一步：统计违禁词总数（不修改原字符串）
+    int total = 0;
+    string temp = l1; // 拷贝一份用于统计
+    for (const string& word : key) {
+        size_t pos = 0;
+        while ((pos = temp.find(word, pos)) != string::npos) 
+		{
+            total++;
+            pos += word.length(); // 从违禁词末尾继续
+        }
+    }
+
+    // 第二步：根据阈值决定输出
+    if (total >= num) {
+        cout << total << endl;
+        cout << "He Xie Ni Quan Jia!" << endl;
+    } else {
+        // 替换所有违禁词
+        string result = l1;
+        for (const string& word : key) {
+            size_t pos = 0;
+            while ((pos = result.find(word, pos)) != string::npos) {
+                result.replace(pos, word.length(), "<censored>");
+                pos += 10; // "<censored>" 的长度
+            }
+        }
+        cout << result << endl;
+    }
+
+    return 0;
+}
